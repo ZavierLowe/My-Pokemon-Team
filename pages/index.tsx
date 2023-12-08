@@ -1,118 +1,98 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
+import useSWR from 'swr'
+import { useState, useEffect } from 'react'
+
+
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+  const teamIds = [395, 350, 914, 383, 445, 975];
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+// fetchTeamData funciton is an async function that can perform an asynchronous operations, meaning it can wait for something to happen (like fetching data) before continuing.
+  const fetchTeamData = async () => {
+	const urls = teamIds.map((id) => `https://pokeapi.co/api/v2/pokemon/${id}`); //users the map function to iterate over the teamIds array to get the ids of the pokemon we want and creates a url to fetch its data
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+	const promises = urls.map((url) => fetch(url).then((res) => res.json()));
+    //uses the fetch api to send a requerst to the Pokemon API endpoint specified by the url
+	const pokemonData = await Promise.all(promises);
+  //uses the promise.all method to wait for the promises array to relsove. Once all data is fetched its stored in the pokemonData variable
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
+  return pokemonData
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+ };
+
+const [pokemonData, setPokemonData] = useState([]);
+useEffect(() => {
+  
+    
+		
+    fetchTeamData().then((data) => setPokemonData(data));
+	
+	
+} ,[] );
+
+
+	const { error } = useSWR(fetchTeamData, {
+		revalidateOnFocus: false,
+		revalidateOnReconnect: false,
+		refreshInterval: 30000,
+	});
+    console.log(pokemonData);
+    
+
+ if (error) return <div>Error fetching Pokemon data</div>;
+if (!pokemonData) return <div>Loading...</div>;
+
+  
+  
+     ;
+      
+		//Basic code to help get started with calling the api
+		// const fetcher = (...args) => fetch(...args).then((res) => res.json());
+		//  const { data, error } = useSWR(
+		// 		"https://pokeapi.co/api/v2/pokemon/empoleon", fetcher
+		// 	);
+
+		return (
+			<main className="bg-green-900 h-full">
+				<div className="flex">
+					<h1 className="text-2xl">My Pokemon Team</h1>
+
+					{pokemonData.map((pokemon) => {
+						const imageKeys = Object.keys(['pokemon.sprites.other.official-artwork']); //how to turn an array that has a hyphen readable json
+
+						return (
+							<div key={pokemon.id} className="bg-black">
+								{imageKeys.map((key) => (
+									//Had issues showing different images becasue the array had a underscore in it so I used the two pipes to output one or the other if its not there
+                  <Image
+										key={key}
+										src={
+											pokemon.sprites.other.dream_world.front_default ||
+											pokemon.sprites.front_default
+										}
+										width={250}
+										height={200}
+										alt={`${pokemon.name} - ${key}`}
+									/>
+								))}
+								<h2 className="text-xl uppercase">{pokemon.name}</h2>
+								<p>
+									<b>Type:</b>{" "}
+									{pokemon.types.map((type) => type.name).join(", ")}
+								</p>
+								{/* ...render other desired pokemon details... */}
+							</div>
+						);
+					})}
+				</div>
+
+				<div className="grid grid-cols-4"></div>
+			</main>
+		);
+	};
+    
