@@ -58,88 +58,78 @@ if (!pokemonData) return <div>Loading...</div>;
 		// 	);
 
 		return (
-			<main className="bg-green-900 h-full">
+			<main className="bg-[#fef6f6] h-full">
 				<div className="flex">
-					<h1 className="text-2xl">My Pokemon Team</h1>
+					<h1 className="text-2xl">My Favorite Pokemon </h1>
 
-					{pokemonData.map((pokemon:any) => {
-					
+					{pokemonData.map((pokemon: any) => {
 						return (
-							<div key={pokemon.id} className="bg-black">
-								<Image
-									src={
-										pokemon.sprites.other.dream_world.front_default ||
-										pokemon.sprites.front_default
-									}
-									width={500}
-									height={500}
-									alt={`${pokemon.name} }`}
-								/>
+							<div key={pokemon.id} className="bg-[#fef6f6] text-black">
+								<div className="border border-gray-400 w-[250px] p-4 rounded-lg">
+									<div className="bg-gray-800 rounded-lg">
+										<Image
+											className="rounded-lg p-4 items-center"
+											src={
+												pokemon.sprites.other.home.front_shiny ||
+												pokemon.sprites.front_default
+											}
+											width={500}
+											height={500}
+											alt={`${pokemon.name} }`}
+										/>
+									</div>
 
-								<h2 className="text-xl uppercase text-white">{pokemon.name}</h2>
-								<p className='text-white'>
-									<b className="text-white">Type:</b>{" "}
-									{pokemon.types.map((slot:any) => slot.type.name).join(", ")}
-								</p>
-								<p className="text-white capitalize">
-									{" "}
-									Ability: {pokemon.abilities[0].ability.name}
-								</p>
-								{/* ...render other desired pokemon details... */}
-								<div className="text-white mb-4 text-2xl"> Base Stats</div>
-								<div className="flex">
-									<p className="text-white capitalize">
-										{pokemon.stats[0].stat.name}
+									<h2 className="text-3xl capitalize ">{pokemon.name}</h2>
+									<p className=" capitalize">
+										<b className="">Type:</b>{" "}
+										{pokemon.types
+											.map((slot: any) => slot.type.name)
+											.join(", ")}
 									</p>
-									<p className="text-white ml-2">
-										{pokemon.stats[0].base_stat}
+									<p className=" capitalize">
+										{" "}
+										Ability: {pokemon.abilities[0].ability.name}
 									</p>
-								</div>
+									{/* ...render other desired pokemon details... */}
+									<div className="mb-4 text-2xl"> Base Stats</div>
+									<div className="flex">
+										<p className=" capitalize">{pokemon.stats[0].stat.name}</p>
+										<p className=" ml-2">{pokemon.stats[0].base_stat}</p>
+									</div>
 
-								<div className="flex">
-									<p className="text-white capitalize">
-										{pokemon.stats[1].stat.name}
-									</p>
-									<p className="text-white ml-2">
-										{pokemon.stats[1].base_stat}
-									</p>
-								</div>
+									<div className="flex">
+										<p className=" capitalize">{pokemon.stats[1].stat.name}</p>
+										<p className="text-white ml-2">
+											{pokemon.stats[1].base_stat}
+										</p>
+									</div>
 
-								<div className="flex">
-									<p className="text-white capitalize">
-										{pokemon.stats[2].stat.name}
-									</p>
-									<p className="text-white ml-2">
-										{pokemon.stats[2].base_stat}
-									</p>
-								</div>
+									<div className="flex">
+										<p className=" capitalize">{pokemon.stats[2].stat.name}</p>
+										<p className=" ml-2">{pokemon.stats[2].base_stat}</p>
+									</div>
 
-								<div className="flex">
-									<p className="text-white capitalize">
-										{pokemon.stats[3].stat.name}
-									</p>
-									<p className="text-white ml-2">
-										{pokemon.stats[3].base_stat}
-									</p>
-								</div>
+									<div className="flex">
+										<p className=" capitalize">{pokemon.stats[3].stat.name}</p>
+										<p className="text-white ml-2">
+											{pokemon.stats[3].base_stat}
+										</p>
+									</div>
 
-								<div className="flex">
-									<p className="text-white capitalize">
-										{pokemon.stats[4].stat.name}
-									</p>
-									<p className="text-white ml-2">
-										{pokemon.stats[4].base_stat}
-									</p>
-								</div>
+									<div className="flex">
+										<p className=" capitalize">{pokemon.stats[4].stat.name}</p>
+										<p className=" ml-2">{pokemon.stats[4].base_stat}</p>
+									</div>
 
-								<div className="flex">
-									<p className="text-white capitalize">
-										{pokemon.stats[5].stat.name}
-									</p>
-									<p className="text-white ml-2">
-										{pokemon.stats[5].base_stat}
-									</p>
+									<div className="flex">
+										<p className=" capitalize">{pokemon.stats[5].stat.name}</p>
+										<p className=" ml-2">{pokemon.stats[5].base_stat}</p>
+									</div>
 								</div>
+								
+
+							
+								
 							</div>
 						);
 					})}
