@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
-  const teamIds = [395, 350, 914, 383, 445, 975];
+  const teamIds = [395, 350, 384, 383, 445, 248];
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 // fetchTeamData funciton is an async function that can perform an asynchronous operations, meaning it can wait for something to happen (like fetching data) before continuing.
@@ -62,30 +62,84 @@ if (!pokemonData) return <div>Loading...</div>;
 				<div className="flex">
 					<h1 className="text-2xl">My Pokemon Team</h1>
 
-					{pokemonData.map((pokemon) => {
-						const imageKeys = Object.keys(['pokemon.sprites.other.official-artwork']); //how to turn an array that has a hyphen readable json
-
+					{pokemonData.map((pokemon:any) => {
+					
 						return (
 							<div key={pokemon.id} className="bg-black">
-								{imageKeys.map((key) => (
-									//Had issues showing different images becasue the array had a underscore in it so I used the two pipes to output one or the other if its not there
-                  <Image
-										key={key}
-										src={
-											pokemon.sprites.other.dream_world.front_default ||
-											pokemon.sprites.front_default
-										}
-										width={250}
-										height={200}
-										alt={`${pokemon.name} - ${key}`}
-									/>
-								))}
-								<h2 className="text-xl uppercase">{pokemon.name}</h2>
-								<p>
-									<b>Type:</b>{" "}
-									{pokemon.types.map((type) => type.name).join(", ")}
+								<Image
+									src={
+										pokemon.sprites.other.dream_world.front_default ||
+										pokemon.sprites.front_default
+									}
+									width={500}
+									height={500}
+									alt={`${pokemon.name} }`}
+								/>
+
+								<h2 className="text-xl uppercase text-white">{pokemon.name}</h2>
+								<p className='text-white'>
+									<b className="text-white">Type:</b>{" "}
+									{pokemon.types.map((slot:any) => slot.type.name).join(", ")}
+								</p>
+								<p className="text-white capitalize">
+									{" "}
+									Ability: {pokemon.abilities[0].ability.name}
 								</p>
 								{/* ...render other desired pokemon details... */}
+								<div className="text-white mb-4 text-2xl"> Base Stats</div>
+								<div className="flex">
+									<p className="text-white capitalize">
+										{pokemon.stats[0].stat.name}
+									</p>
+									<p className="text-white ml-2">
+										{pokemon.stats[0].base_stat}
+									</p>
+								</div>
+
+								<div className="flex">
+									<p className="text-white capitalize">
+										{pokemon.stats[1].stat.name}
+									</p>
+									<p className="text-white ml-2">
+										{pokemon.stats[1].base_stat}
+									</p>
+								</div>
+
+								<div className="flex">
+									<p className="text-white capitalize">
+										{pokemon.stats[2].stat.name}
+									</p>
+									<p className="text-white ml-2">
+										{pokemon.stats[2].base_stat}
+									</p>
+								</div>
+
+								<div className="flex">
+									<p className="text-white capitalize">
+										{pokemon.stats[3].stat.name}
+									</p>
+									<p className="text-white ml-2">
+										{pokemon.stats[3].base_stat}
+									</p>
+								</div>
+
+								<div className="flex">
+									<p className="text-white capitalize">
+										{pokemon.stats[4].stat.name}
+									</p>
+									<p className="text-white ml-2">
+										{pokemon.stats[4].base_stat}
+									</p>
+								</div>
+
+								<div className="flex">
+									<p className="text-white capitalize">
+										{pokemon.stats[5].stat.name}
+									</p>
+									<p className="text-white ml-2">
+										{pokemon.stats[5].base_stat}
+									</p>
+								</div>
 							</div>
 						);
 					})}
