@@ -2,7 +2,7 @@ This is a simple [Next.js](https://nextjs.org/) project learning to use [SWR](ht
 
 I used the data fetching function to fetch my favorite pokemon from the [PokiApi](https://pokeapi.co/) and render them on screen showing thier image and stats from the API.
 
-## Sample Image of Project
+## Image of Project
 ![alt text](https://github.com/ZavierLowe/My-Pokemon-Team/blob/main/public/images/My-fav-pokemon.png)
 
 
